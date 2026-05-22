@@ -3,7 +3,7 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Gweather - Weather Dashboard</title>
+<title>Gweather - Stuttgart Dashboard</title>
 <!-- Google Fonts: Hanken Grotesk & Inter -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -144,6 +144,39 @@
         .search-container {
             position: relative;
         }
+        .forecast-detail-section {
+          margin-top: 28px;
+        }
+        .forecast-detail-grid {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          gap: 16px;
+          margin-top: 22px;
+        }
+        .forecast-detail-card {
+          background: white;
+          border-radius: 22px;
+          padding: 22px 16px;
+          box-shadow: 0 18px 35px rgba(32, 40, 35, 0.04);
+        }
+        .forecast-detail-card h3 {
+          font-size: 17px;
+          margin-bottom: 14px;
+        }
+        .forecast-detail-card .material-symbols-outlined {
+          color: #08783b;
+          font-size: 34px;
+          margin-bottom: 16px;
+        }
+        .forecast-detail-card p {
+          color: #6f766d;
+          font-size: 13px;
+          font-weight: 700;
+          margin-bottom: 8px;
+        }
+        .forecast-detail-card strong {
+          color: #1f1f1f;
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden">
@@ -208,7 +241,7 @@
 </div>
 </div>
 </header>
-<!-- Hero Section: Current Weather -->
+<!-- Hero Section: Stuttgart Current -->
 <section class="mb-section-gap">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
 <!-- Main Weather Card -->
@@ -227,7 +260,7 @@
 </div>
 </div>
 <div class="mt-12 flex items-baseline gap-2">
-<span class="font-display-lg text-[120px] leading-none text-on-surface font-extrabold" id="temp">18°</span>
+<span class="font-display-lg text-[120px] leading-none text-on-surface font-extrabold"><span id="temp">18</span>°</span>
 <span class="font-headline-lg text-headline-lg text-on-surface-variant opacity-40" id="tempRange">/ 22°</span>
 </div>
 <div class="mt-auto pt-10 flex gap-10">
@@ -239,10 +272,10 @@
 </div>
 </div>
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary" data-icon="opacity">opacity</span>
+<span class="material-symbols-outlined text-primary" data-icon="visibility">visibility</span>
 <div>
-<p class="font-label-sm text-label-sm text-on-surface-variant">Humidity</p>
-<p class="font-label-md text-label-md text-on-surface" id="visibilityHumidity">64%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Visibility</p>
+<p class="font-label-md text-label-md text-on-surface">14 km</p>
 </div>
 </div>
 <div class="flex items-center gap-3">
@@ -258,13 +291,12 @@
 <!-- Map Insight Card -->
 <div class="lg:col-span-4 bg-surface-container-lowest ambient-shadow rounded-[2rem] overflow-hidden flex flex-col">
 <div class="flex-1 relative">
-<img alt="Location Map View" class="w-full h-full object-cover" id="mapImage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh0lLWogA9EWDoKzEuctHM5sSVri0SdaVZQWyC8bDtuTdbj4VL2NrH_oBszs2MTyUDqwz0xsD8sAKTB4P0IYUzUpfRWcrJNSPgwXHbLcSI8u-60LkCCZdYlO2G77mibJAQzW56wgL3Y2eWy6Eeb2YH3Ujhk8umUvmlWO9LdSFiVcjTgchEHN35qPfx6h4ZemYGY5ytdT7XtUDR3jATsX72U7jSLH2QZoP-f3xDdsx4C0tvKL_YM4BstxLQaBkaopnEeoz9eHo8LNg7"/>
+<img alt="Stuttgart Map View" class="w-full h-full object-cover" data-alt="A highly detailed satellite map visualization of Stuttgart, Germany, rendered with a clean, minimalist topographic style. The imagery features lush green spaces, organized urban grids, and soft natural lighting that matches an organic modern UI. The palette is dominated by earthy greens and soft tans, creating a serene and informative geographic visual." data-location="Stuttgart" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh0lLWogA9EWDoKzEuctHM5sSVri0SdaVZQWyC8bDtuTdbj4VL2NrH_oBszs2MTyUDqwz0xsD8sAKTB4P0IYUzUpfRWcrJNSPgwXHbLcSI8u-60LkCCZdYlO2G77mibJAQzW56wgL3Y2eWy6Eeb2YH3Ujhk8umUvmlWO9LdSFiVcjTgchEHN35qPfx6h4ZemYGY5ytdT7XtUDR3jATsX72U7jSLH2QZoP-f3xDdsx4C0tvKL_YM4BstxLQaBkaopnEeoz9eHo8LNg7"/>
 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
 <button class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md text-primary font-label-md text-label-md py-3 rounded-xl hover:bg-white transition-colors flex items-center justify-center gap-2">
 <span class="material-symbols-outlined" data-icon="map">map</span>
                             Expand Satellite View
                         </button>
-</div>
 </div>
 </div>
 </section>
@@ -275,6 +307,37 @@
 <button class="text-primary font-label-md text-label-md hover:underline">Customize Cards</button>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Sun Cycle -->
+<div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant" data-icon="wb_sunny">wb_sunny</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Sun Cycle</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Sunrise</p>
+<p class="font-label-md text-label-md text-on-surface">05:42 AM</p>
+</div>
+<div class="h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-3/4"></div>
+</div>
+<div class="flex justify-between items-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Sunset</p>
+<p class="font-label-md text-label-md text-on-surface">08:56 PM</p>
+</div>
+</div>
+</div>
+<!-- Humidity -->
+<div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary" data-icon="humidity_percentage">humidity_percentage</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Humidity</span>
+</div>
+<div>
+<p class="font-display-lg text-[32px] text-on-surface">64%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Optimal for comfort</p>
+</div>
+</div>
 <!-- Wind Speed -->
 <div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
 <div class="flex justify-between items-start">
@@ -282,44 +345,24 @@
 <span class="text-on-surface-variant font-label-sm text-label-sm">Wind</span>
 </div>
 <div>
-<p class="font-display-lg text-[32px] text-on-surface"><span id="windSpeed">12</span> <span class="text-body-md font-normal">km/h</span></p>
+<p class="font-display-lg text-[32px] text-on-surface">12 <span class="text-body-md font-normal">km/h</span></p>
 <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm mt-1">
-<span class="material-symbols-outlined text-[16px]" id="windDirection" style="transform: rotate(45deg);">navigation</span>
-<span id="windDir">North-East</span>
+<span class="material-symbols-outlined text-[16px] rotate-[45deg]" data-icon="navigation">navigation</span>
+                            North-East
                         </div>
 </div>
 </div>
-<!-- Hourly Temperature -->
+<!-- UV Index -->
 <div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
 <div class="flex justify-between items-start">
-<span class="material-symbols-outlined text-on-secondary-fixed-variant" data-icon="thermostat">thermostat</span>
-<span class="text-on-surface-variant font-label-sm text-label-sm">Next Hour</span>
+<span class="material-symbols-outlined text-on-secondary-fixed-variant" data-icon="light_mode">light_mode</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">UV Index</span>
 </div>
 <div>
-<p class="font-display-lg text-[32px] text-on-surface" id="nextHourTemp">15°C</p>
-<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Slightly cooler</p>
+<p class="font-display-lg text-[32px] text-on-surface">4 <span class="text-body-md font-normal">Moderate</span></p>
+<div class="mt-2 w-full h-1.5 bg-surface-container rounded-full">
+<div class="h-full bg-secondary w-[40%] rounded-full"></div>
 </div>
-</div>
-<!-- Hourly Humidity -->
-<div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
-<div class="flex justify-between items-start">
-<span class="material-symbols-outlined text-primary" data-icon="humidity_percentage">humidity_percentage</span>
-<span class="text-on-surface-variant font-label-sm text-label-sm">Humidity</span>
-</div>
-<div>
-<p class="font-display-lg text-[32px] text-on-surface" id="hourlyHumidity">82%</p>
-<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Moderate humidity</p>
-</div>
-</div>
-<!-- Hourly Wind Speed -->
-<div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
-<div class="flex justify-between items-start">
-<span class="material-symbols-outlined text-primary" data-icon="air">air</span>
-<span class="text-on-surface-variant font-label-sm text-label-sm">Wind Next Hour</span>
-</div>
-<div>
-<p class="font-display-lg text-[32px] text-on-surface"><span id="hourlyWindSpeed">12</span> <span class="text-body-md font-normal">km/h</span></p>
-<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Light wind</p>
 </div>
 </div>
 </div>
@@ -327,7 +370,7 @@
 <!-- Daily Forecast Section -->
 <section class="mb-section-gap">
 <div class="flex justify-between items-center mb-8">
-<h3 class="font-headline-lg text-headline-lg text-on-surface">Hourly Forecast</h3>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Daily Forecast</h3>
 <div class="flex gap-2">
 <button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all" id="scrollLeft">
 <span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
@@ -338,7 +381,66 @@
 </div>
 </div>
 <div class="flex gap-gutter overflow-x-auto hide-scrollbar pb-6 snap-x" id="forecastScroll">
-<!-- Forecast items will be populated here by JavaScript -->
+<!-- Forecast Item: Tue -->
+<div class="min-w-[180px] snap-start bg-surface-container-lowest ambient-shadow p-6 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer">
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70 mb-4 uppercase tracking-widest">Tue</p>
+<span class="material-symbols-outlined text-[40px] text-primary group-hover:text-on-primary-container" data-icon="sunny">sunny</span>
+<div class="mt-6">
+<p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container">24°</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">12°</p>
+</div>
+</div>
+<!-- Forecast Item: Wed -->
+<div class="min-w-[180px] snap-start bg-surface-container-lowest ambient-shadow p-6 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer">
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70 mb-4 uppercase tracking-widest">Wed</p>
+<span class="material-symbols-outlined text-[40px] text-primary group-hover:text-on-primary-container" data-icon="partly_cloudy_day" style="font-variation-settings: 'FILL' 1;">partly_cloudy_day</span>
+<div class="mt-6">
+<p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container">22°</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">14°</p>
+</div>
+</div>
+<!-- Forecast Item: Thu -->
+<div class="min-w-[180px] snap-start bg-surface-container-lowest ambient-shadow p-6 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer">
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70 mb-4 uppercase tracking-widest">Thu</p>
+<span class="material-symbols-outlined text-[40px] text-primary group-hover:text-on-primary-container" data-icon="rainy">rainy</span>
+<div class="mt-6">
+<p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container">19°</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">11°</p>
+</div>
+</div>
+<!-- Forecast Item: Fri -->
+<div class="min-w-[180px] snap-start bg-surface-container-lowest ambient-shadow p-6 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer">
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70 mb-4 uppercase tracking-widest">Fri</p>
+<span class="material-symbols-outlined text-[40px] text-primary group-hover:text-on-primary-container" data-icon="cloudy">cloudy</span>
+<div class="mt-6">
+<p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container">21°</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">13°</p>
+</div>
+</div>
+<!-- Forecast Item: Sat -->
+<div class="min-w-[180px] snap-start bg-surface-container-lowest ambient-shadow p-6 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer">
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70 mb-4 uppercase tracking-widest">Sat</p>
+<span class="material-symbols-outlined text-[40px] text-primary group-hover:text-on-primary-container" data-icon="wb_sunny">wb_sunny</span>
+<div class="mt-6">
+<p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container">26°</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">15°</p>
+</div>
+</div>
+<!-- Forecast Item: Sun -->
+<div class="min-w-[180px] snap-start bg-surface-container-lowest ambient-shadow p-6 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer">
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70 mb-4 uppercase tracking-widest">Sun</p>
+<span class="material-symbols-outlined text-[40px] text-primary group-hover:text-on-primary-container" data-icon="sunny">sunny</span>
+<div class="mt-6">
+<p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container">28°</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">17°</p>
+</div>
+</div>
+</div>
+<div class="forecast-detail-section">
+  <div class="flex justify-between items-end mb-8">
+    <h3 class="font-headline-lg text-headline-lg text-on-surface">More Forecast Details</h3>
+  </div>
+  <div class="forecast-detail-grid" id="forecastDetails"></div>
 </div>
 </section>
 <!-- Footer -->
@@ -352,285 +454,244 @@
 </footer>
 </main>
 <script>
-    // City coordinates database
-    const cityCoordinates = {
-        'london': { lat: 51.5074, lon: -0.1278, country: 'GB' },
-        'paris': { lat: 48.8566, lon: 2.3522, country: 'FR' },
-        'berlin': { lat: 52.52, lon: 13.41, country: 'DE' },
-        'madrid': { lat: 40.4168, lon: -3.7038, country: 'ES' },
-        'rome': { lat: 41.9028, lon: 12.4964, country: 'IT' },
-        'amsterdam': { lat: 52.3676, lon: 4.9041, country: 'NL' },
-        'tokyo': { lat: 35.6762, lon: 139.6503, country: 'JP' },
-        'new york': { lat: 40.7128, lon: -74.0060, country: 'US' },
-        'sydney': { lat: -33.8688, lon: 151.2093, country: 'AU' },
-        'toronto': { lat: 43.6629, lon: -79.3957, country: 'CA' },
-        'dubai': { lat: 25.2048, lon: 55.2708, country: 'AE' },
-        'shanghai': { lat: 31.2304, lon: 121.4737, country: 'CN' },
-        'mumbai': { lat: 19.0760, lon: 72.8777, country: 'IN' },
-        'bangkok': { lat: 13.7563, lon: 100.5018, country: 'TH' },
-        'singapore': { lat: 1.3521, lon: 103.8198, country: 'SG' },
-        'stuttgart': { lat: 48.7758, lon: 9.1829, country: 'DE' },
-        'munich': { lat: 48.1351, lon: 11.5820, country: 'DE' },
-        'hamburg': { lat: 53.5511, lon: 9.9937, country: 'DE' },
-        'frankfurt': { lat: 50.1109, lon: 8.6821, country: 'DE' },
-        'cologne': { lat: 50.9375, lon: 6.9603, country: 'DE' }
-    };
-    
-    const API_URL = 'https://api.open-meteo.com/v1/forecast';
-    
-    // Weather icon mapping
-    const weatherIconMap = {
-        0: 'sunny',
-        1: 'partly_cloudy_day',
-        2: 'cloudy',
-        3: 'cloudy',
-        45: 'foggy',
-        48: 'foggy',
-        51: 'rainy',
-        53: 'rainy',
-        55: 'rainy',
-        61: 'rainy',
-        63: 'rainy',
-        65: 'rainy',
-        71: 'snowing',
-        73: 'snowing',
-        75: 'snowing',
-        80: 'rainy',
-        81: 'rainy',
-        82: 'rainy',
-        85: 'snowing',
-        86: 'snowing',
-        95: 'thunderstorm',
-        96: 'thunderstorm',
-        99: 'thunderstorm'
-    };
-    
-    let currentLatitude = 48.7758;
-    let currentLongitude = 9.1829;
-    let currentCity = 'Stuttgart';
-    let currentCountry = 'DE';
-    
-    // Fetch weather data from Open-Meteo API
-    async function fetchWeather(lat, lon, city, country) {
-        try {
-            const response = await fetch(
-                `${API_URL}?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,weather_code,relative_humidity_2m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`
-            );
-            const data = await response.json();
-            updateUI(data, city, country);
-        } catch (error) {
-            console.error('Error fetching weather:', error);
-            alert('Failed to fetch weather data. Please try again.');
-        }
-    }
-    
-    function updateUI(data, city, country) {
-        const current = data.current;
-        const hourly = data.hourly;
-        const daily = data.daily;
-        
-        // Update current weather
-        document.getElementById('cityName').textContent = city;
-        document.getElementById('location').textContent = `${city}, ${country}`;
-        document.getElementById('temp').textContent = Math.round(current.temperature_2m) + '°';
-        document.getElementById('feelsLike').textContent = Math.round(current.temperature_2m) + '°C';
-        document.getElementById('visibilityHumidity').textContent = current.relative_humidity_2m + '%';
-        document.getElementById('windSpeed').textContent = Math.round(current.wind_speed_10m);
-        document.getElementById('windDir').textContent = getWindDirection(0);
-        document.getElementById('precipitation').textContent = Math.round(Math.random() * 30) + '%';
-        
-        // Update weather icon and description
-        const iconCode = current.weather_code;
-        const iconName = weatherIconMap[iconCode] || 'partly_cloudy_day';
-        document.getElementById('weatherIcon').textContent = iconName;
-        document.getElementById('weatherDesc').textContent = getWeatherDescription(iconCode);
-        
-        // Update temperature range
-        const maxTemp = Math.round(daily.temperature_2m_max[0]);
-        const minTemp = Math.round(daily.temperature_2m_min[0]);
-        document.getElementById('tempRange').textContent = `/ ${maxTemp}°`;
-        
-        // Update hourly data
-        const nextHourIndex = 1;
-        document.getElementById('nextHourTemp').textContent = Math.round(hourly.temperature_2m[nextHourIndex]) + '°C';
-        document.getElementById('hourlyHumidity').textContent = hourly.relative_humidity_2m[nextHourIndex] + '%';
-        document.getElementById('hourlyWindSpeed').textContent = Math.round(hourly.wind_speed_10m[nextHourIndex]);
-        
-        // Update date and time
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('dateTime').textContent = `${city} • ${dateStr}, ${timeStr}`;
-        
-        // Update hourly forecast
-        updateForecast(hourly);
-    }
-    
-    function updateForecast(hourly) {
-        const forecastContainer = document.getElementById('forecastScroll');
-        forecastContainer.innerHTML = '';
-        
-        // Show 24 hours of forecast
-        for (let i = 0; i < 24; i++) {
-            const time = new Date(hourly.time[i]);
-            const hour = time.getHours();
-            const temp = Math.round(hourly.temperature_2m[i]);
-            const humidity = hourly.relative_humidity_2m[i];
-            const weatherCode = hourly.weather_code[i];
-            const iconName = weatherIconMap[weatherCode] || 'partly_cloudy_day';
-            
-            const forecastItem = document.createElement('div');
-            forecastItem.className = 'min-w-[140px] snap-start bg-surface-container-lowest ambient-shadow p-4 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer';
-            forecastItem.innerHTML = `
-                <p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70 mb-3 uppercase tracking-widest">${hour}:00</p>
-                <span class="material-symbols-outlined text-[32px] text-primary group-hover:text-on-primary-container" data-icon="${iconName}">${iconName}</span>
-                <div class="mt-3">
-                    <p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container text-lg">${temp}°</p>
-                    <p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">${humidity}%</p>
-                </div>
-            `;
-            forecastContainer.appendChild(forecastItem);
-        }
-    }
-    
-    function getWeatherDescription(code) {
-        const descriptions = {
-            0: 'Clear Sky',
-            1: 'Mainly Clear',
-            2: 'Partly Cloudy',
-            3: 'Overcast',
-            45: 'Foggy',
-            48: 'Foggy',
-            51: 'Light Drizzle',
-            53: 'Moderate Drizzle',
-            55: 'Heavy Drizzle',
-            61: 'Slight Rain',
-            63: 'Moderate Rain',
-            65: 'Heavy Rain',
-            71: 'Slight Snow',
-            73: 'Moderate Snow',
-            75: 'Heavy Snow',
-            80: 'Slight Rain Showers',
-            81: 'Moderate Rain Showers',
-            82: 'Violent Rain Showers',
-            85: 'Slight Snow Showers',
-            86: 'Heavy Snow Showers',
-            95: 'Thunderstorm',
-            96: 'Thunderstorm with Hail',
-            99: 'Thunderstorm with Hail'
+        const weatherIconMap = {
+            0: 'sunny',
+            1: 'partly_cloudy_day',
+            2: 'cloudy',
+            3: 'cloudy',
+            45: 'foggy',
+            48: 'foggy',
+            51: 'rainy',
+            53: 'rainy',
+            55: 'rainy',
+            61: 'rainy',
+            63: 'rainy',
+            65: 'rainy',
+            71: 'snowing',
+            73: 'snowing',
+            75: 'snowing',
+            80: 'rainy',
+            81: 'rainy',
+            82: 'rainy',
+            85: 'snowing',
+            86: 'snowing',
+            95: 'thunderstorm',
+            96: 'thunderstorm',
+            99: 'thunderstorm'
         };
-        return descriptions[code] || 'Unknown';
-    }
-    
-    function getWindDirection(degrees) {
-        const directions = ['North', 'NE', 'East', 'SE', 'South', 'SW', 'West', 'NW'];
-        const index = Math.round(degrees / 45) % 8;
-        return directions[index];
-    }
-    
-    // City search functionality
-    const searchInput = document.getElementById('citySearch');
-    const suggestionsDropdown = document.getElementById('suggestionsDropdown');
-    
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        
-        if (query.length === 0) {
-            suggestionsDropdown.classList.add('hidden');
-            return;
+
+        const cityCoordinates = {
+            'london': { lat: 51.5074, lon: -0.1278, country: 'GB' },
+            'paris': { lat: 48.8566, lon: 2.3522, country: 'FR' },
+            'berlin': { lat: 52.52, lon: 13.41, country: 'DE' },
+            'madrid': { lat: 40.4168, lon: -3.7038, country: 'ES' },
+            'rome': { lat: 41.9028, lon: 12.4964, country: 'IT' },
+            'amsterdam': { lat: 52.3676, lon: 4.9041, country: 'NL' },
+            'tokyo': { lat: 35.6762, lon: 139.6503, country: 'JP' },
+            'new york': { lat: 40.7128, lon: -74.0060, country: 'US' },
+            'sydney': { lat: -33.8688, lon: 151.2093, country: 'AU' },
+            'toronto': { lat: 43.6629, lon: -79.3957, country: 'CA' },
+            'dubai': { lat: 25.2048, lon: 55.2708, country: 'AE' },
+            'shanghai': { lat: 31.2304, lon: 121.4737, country: 'CN' },
+            'mumbai': { lat: 19.0760, lon: 72.8777, country: 'IN' },
+            'bangkok': { lat: 13.7563, lon: 100.5018, country: 'TH' },
+            'singapore': { lat: 1.3521, lon: 103.8198, country: 'SG' },
+            'stuttgart': { lat: 48.7758, lon: 9.1829, country: 'DE' },
+            'munich': { lat: 48.1351, lon: 11.5820, country: 'DE' },
+            'hamburg': { lat: 53.5511, lon: 9.9937, country: 'DE' },
+            'frankfurt': { lat: 50.1109, lon: 8.6821, country: 'DE' },
+            'cologne': { lat: 50.9375, lon: 6.9603, country: 'DE' }
+        };
+
+        const API_URL = 'https://api.open-meteo.com/v1/forecast';
+        let currentLatitude = 48.7758;
+        let currentLongitude = 9.1829;
+        let currentCity = 'Stuttgart';
+        let currentCountry = 'DE';
+
+        async function fetchWeather(lat, lon, city, country) {
+            try {
+                const response = await fetch(
+                    `${API_URL}?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,wind_direction_10m,weather_code,relative_humidity_2m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`
+                );
+                const data = await response.json();
+                updateUI(data, city, country);
+            } catch (error) {
+                console.error('Error fetching weather:', error);
+            }
         }
-        
-        // Filter cities
-        const matches = Object.keys(cityCoordinates).filter(city => 
-            city.includes(query)
-        );
-        
-        if (matches.length === 0) {
-            suggestionsDropdown.classList.add('hidden');
-            return;
+
+        function updateUI(data, city, country) {
+            const current = data.current;
+            const daily = data.daily;
+
+            document.getElementById('cityName').textContent = city;
+            document.getElementById('location').textContent = `${city}, ${country}`;
+            document.getElementById('temp').textContent = Math.round(current.temperature_2m);
+            document.getElementById('feelsLike').textContent = Math.round(current.temperature_2m) + '°C';
+            document.getElementById('precipitation').textContent = Math.round(Math.random() * 30) + '%';
+
+            const iconCode = current.weather_code;
+            const iconName = weatherIconMap[iconCode] || 'partly_cloudy_day';
+            document.getElementById('weatherIcon').textContent = iconName;
+            document.getElementById('weatherDesc').textContent = getWeatherDescription(iconCode);
+
+            const maxTemp = Math.round(daily.temperature_2m_max[0]);
+            const minTemp = Math.round(daily.temperature_2m_min[0]);
+            document.getElementById('tempRange').textContent = `/ ${maxTemp}°`;
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('dateTime').textContent = `${city} • ${dateStr}, ${timeStr}`;
+
+            updateDailyForecast(daily);
         }
-        
-        // Display suggestions
-        suggestionsDropdown.innerHTML = matches.map(city => `
-            <div class="city-suggestion" data-city="${city}">
-                <p class="font-label-md text-label-md text-on-surface">${city.charAt(0).toUpperCase() + city.slice(1)}</p>
-            </div>
-        `).join('');
-        
-        suggestionsDropdown.classList.remove('hidden');
-        
-        // Add click handlers to suggestions
-        document.querySelectorAll('.city-suggestion').forEach(suggestion => {
-            suggestion.addEventListener('click', () => {
-                const selectedCity = suggestion.dataset.city;
-                selectCity(selectedCity);
+
+        function updateDailyForecast(daily) {
+          const container = document.getElementById('forecastDays');
+          const detailContainer = document.getElementById('forecastDetails');
+          container.innerHTML = '';
+          detailContainer.innerHTML = '';
+          const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+          for (let i = 0; i < 7; i++) {
+            const date = new Date(daily.time[i]);
+            const dayName = days[(date.getDay() + 6) % 7];
+            const maxTemp = Math.round(daily.temperature_2m_max[i]);
+            const minTemp = Math.round(daily.temperature_2m_min[i]);
+            const weatherCode = daily.weather_code[i];
+            const iconName = weatherIconMap[weatherCode] || 'partly_cloudy_day';
+            const rainChance = Math.round(Math.random() * 100);
+            const windValue = Math.round(8 + Math.random() * 18);
+            const humidityValue = Math.round(45 + Math.random() * 40);
+            const card = document.createElement('div');
+            card.className = 'min-w-[180px] snap-start bg-surface-container-lowest ambient-shadow p-6 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer';
+            card.innerHTML = `
+              <b>${dayName}</b>
+              <span class="material-symbols-outlined text-[40px] text-primary group-hover:text-on-primary-container" data-icon="${iconName}">${iconName}</span>
+              <div class="mt-6">
+                <p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container">${maxTemp}°</p>
+                <p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">${minTemp}° • Rain ${rainChance}%</p>
+              </div>
+            `;
+            container.appendChild(card);
+            const detailCard = document.createElement('div');
+            detailCard.className = 'forecast-detail-card';
+            detailCard.innerHTML = `
+              <h3>${dayName}</h3>
+              <span class="material-symbols-outlined">${iconName}</span>
+              <p>Max Temp: <strong>${maxTemp}°C</strong></p>
+              <p>Min Temp: <strong>${minTemp}°C</strong></p>
+              <p>Rain: <strong>${rainChance}%</strong></p>
+              <p>Wind: <strong>${windValue} km/h</strong></p>
+              <p>Humidity: <strong>${humidityValue}%</strong></p>
+            `;
+            detailContainer.appendChild(detailCard);
+          }
+        }
+
+        function getWeatherDescription(code) {
+            const descriptions = {
+                0: 'Clear Sky',
+                1: 'Mainly Clear',
+                2: 'Partly Cloudy',
+                3: 'Overcast',
+                45: 'Foggy',
+                48: 'Foggy',
+                51: 'Light Drizzle',
+                53: 'Moderate Drizzle',
+                55: 'Heavy Drizzle',
+                61: 'Slight Rain',
+                63: 'Moderate Rain',
+                65: 'Heavy Rain',
+                71: 'Slight Snow',
+                73: 'Moderate Snow',
+                75: 'Heavy Snow',
+                80: 'Slight Rain Showers',
+                81: 'Moderate Rain Showers',
+                82: 'Violent Rain Showers',
+                85: 'Slight Snow Showers',
+                86: 'Heavy Snow Showers',
+                95: 'Thunderstorm',
+                96: 'Thunderstorm with Hail',
+                99: 'Thunderstorm with Hail'
+            };
+            return descriptions[code] || 'Unknown';
+        }
+
+        // City Search
+        const searchInput = document.getElementById('citySearch');
+        const suggestionsDropdown = document.getElementById('suggestionsDropdown');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+
+            if (query.length === 0) {
+                suggestionsDropdown.classList.add('hidden');
+                return;
+            }
+
+            const matches = Object.keys(cityCoordinates).filter(city =>
+                city.includes(query)
+            );
+
+            if (matches.length === 0) {
+                suggestionsDropdown.classList.add('hidden');
+                return;
+            }
+
+            suggestionsDropdown.innerHTML = matches.map(city => `
+                <div class="city-suggestion" data-city="${city}">
+                    ${city.charAt(0).toUpperCase() + city.slice(1)}
+                </div>
+            `).join('');
+
+            suggestionsDropdown.classList.remove('hidden');
+
+            document.querySelectorAll('.city-suggestion').forEach(suggestion => {
+                suggestion.addEventListener('click', () => {
+                    const selectedCity = suggestion.dataset.city;
+                    selectCity(selectedCity);
+                });
             });
         });
-    });
-    
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const query = e.target.value.toLowerCase().trim();
-            if (cityCoordinates[query]) {
-                selectCity(query);
-            } else {
-                alert('City not found. Please select from suggestions.');
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = e.target.value.toLowerCase().trim();
+                if (cityCoordinates[query]) {
+                    selectCity(query);
+                }
             }
+        });
+
+        function selectCity(cityKey) {
+            const cityData = cityCoordinates[cityKey];
+            currentLatitude = cityData.lat;
+            currentLongitude = cityData.lon;
+            currentCity = cityKey.charAt(0).toUpperCase() + cityKey.slice(1);
+            currentCountry = cityData.country;
+
+            searchInput.value = '';
+            suggestionsDropdown.classList.add('hidden');
+
+            fetchWeather(currentLatitude, currentLongitude, currentCity, currentCountry);
         }
-    });
-    
-    function selectCity(cityKey) {
-        const cityData = cityCoordinates[cityKey];
-        currentLatitude = cityData.lat;
-        currentLongitude = cityData.lon;
-        currentCity = cityKey.charAt(0).toUpperCase() + cityKey.slice(1);
-        currentCountry = cityData.country;
-        
-        searchInput.value = '';
-        suggestionsDropdown.classList.add('hidden');
-        
+
+        // Scroll buttons
+        const scrollContainer = document.getElementById('forecastScroll');
+        const btnLeft = document.getElementById('scrollLeft');
+        const btnRight = document.getElementById('scrollRight');
+
+        btnLeft.onclick = () => {
+            scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
+        };
+        btnRight.onclick = () => {
+            scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
+        };
+
+        // Initial load
         fetchWeather(currentLatitude, currentLongitude, currentCity, currentCountry);
-    }
-    
-    // Scroll functionality
-    const scrollContainer = document.getElementById('forecastScroll');
-    const btnLeft = document.getElementById('scrollLeft');
-    const btnRight = document.getElementById('scrollRight');
-
-    btnLeft.onclick = () => {
-        scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
-    };
-    btnRight.onclick = () => {
-        scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
-    };
-
-    // Parallax/hover effect on cards
-    document.addEventListener('mousemove', (e) => {
-        document.querySelectorAll('.ambient-shadow').forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 25;
-                const rotateY = (centerX - x) / 25;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-            }
-        });
-    });
-
-    document.querySelectorAll('.ambient-shadow').forEach(card => {
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `none`;
-        });
-        card.style.transition = "transform 0.1s ease-out";
-    });
-    
-    // Initial load
-    fetchWeather(currentLatitude, currentLongitude, currentCity, currentCountry);
 </script>
-</body></html>
+</body>
+</html>
