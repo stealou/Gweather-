@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gweather - Stuttgart Dashboard</title>
+<!-- Google Fonts: Hanken Grotesk & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#802918",
+                      "on-secondary-fixed": "#3e0500",
+                      "on-error-container": "#93000a",
+                      "surface-container-low": "#f5f4ef",
+                      "secondary-fixed-dim": "#ffb4a5",
+                      "tertiary": "#665e4c",
+                      "on-background": "#1b1c19",
+                      "error": "#ba1a1a",
+                      "background": "#faf9f4",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#00210c",
+                      "outline-variant": "#bccabc",
+                      "surface-container-high": "#e9e8e3",
+                      "on-secondary-container": "#732010",
+                      "inverse-surface": "#30312e",
+                      "on-primary-container": "#00391a",
+                      "surface": "#faf9f4",
+                      "surface-bright": "#faf9f4",
+                      "on-tertiary-container": "#363020",
+                      "outline": "#6d7a6e",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#a19783",
+                      "surface-container-highest": "#e3e3de",
+                      "on-surface": "#1b1c19",
+                      "tertiary-fixed-dim": "#d1c5af",
+                      "surface-tint": "#006d37",
+                      "surface-container": "#efeee9",
+                      "on-primary": "#ffffff",
+                      "inverse-primary": "#61de8a",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#27ae60",
+                      "on-error": "#ffffff",
+                      "primary-fixed": "#7efba4",
+                      "surface-dim": "#dbdad5",
+                      "secondary-container": "#fd876f",
+                      "primary": "#006d37",
+                      "on-tertiary-fixed": "#211b0d",
+                      "on-primary-fixed-variant": "#005228",
+                      "secondary": "#9f402d",
+                      "tertiary-fixed": "#ede1ca",
+                      "surface-variant": "#e3e3de",
+                      "primary-fixed-dim": "#61de8a",
+                      "on-surface-variant": "#3d4a3f",
+                      "on-tertiary-fixed-variant": "#4d4635",
+                      "inverse-on-surface": "#f2f1ec",
+                      "secondary-fixed": "#ffdad3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "64px",
+                      "container-margin-mobile": "20px",
+                      "container-margin-desktop": "40px",
+                      "base": "8px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "display-lg": ["Hanken Grotesk"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "display-lg-mobile": ["Hanken Grotesk"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .ambient-shadow {
+            box-shadow: 0 20px 40px -10px rgba(115, 32, 16, 0.04);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col p-gutter z-50">
+<div class="mb-10 px-4">
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">Gweather</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70" id="location">Stuttgart, DE</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Active: Current -->
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="cloud">cloud</span>
+<span class="font-label-md text-label-md">Current</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Forecast</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="air">air</span>
+<span class="font-label-md text-label-md">Air Quality</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2">
+<button class="bg-primary text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg mb-6 hover:opacity-90 transition-opacity">
+                Upgrade Pro
+            </button>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen px-container-margin-desktop py-10 max-w-[1440px]">
+<!-- Top App Bar (Inside Main for spacing) -->
+<header class="flex justify-between items-center mb-section-gap">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full bg-surface-container border-none rounded-xl pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary focus:bg-surface transition-all text-body-md font-body-md" placeholder="Search city..." type="text" id="citySearch"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">Alex Fischer</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Premium Member</p>
+</div>
+<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a middle-aged man with short hair and a warm, friendly expression. He is wearing a crisp white linen shirt in a brightly lit, minimalist studio setting with soft natural light. The aesthetic is clean and modern, following a high-key light mode palette that emphasizes clarity and organic warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsh8rgSQ0dcIXjAbGW7HfKUmkqj6rsaGFUo4yT590thtT56cSHfHyLne7Pk5IQUR3Fc8gEm--DbtNXNxR3S_jL8HNd8OOJeZMXvpKl25Ltu34GSVMqgRf3wouGa3Q1BpyDevf5ofVP-feNuTVMAc-qYaeYignIspBWfz8Jp_zeMQ2Uy1EMNb7bVLxjMtryOgYlnwNkCH-HklCnDwuMKhT1vMWn7fxvaKqNECySoPdqjgJh-PMmsb9rlRtDF1LVskVYBaIYU-viMvMs"/>
+</div>
+</div>
+</header>
+<!-- Hero Section: Current Weather -->
+<section class="mb-section-gap">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Weather Card -->
+<div class="lg:col-span-8 bg-surface-container-lowest ambient-shadow rounded-[2rem] overflow-hidden relative group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
+<div class="p-10 flex flex-col h-full relative z-10">
+<div class="flex justify-between items-start">
+<div>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-3 py-1 rounded-full uppercase tracking-wider">Live</span>
+<h2 class="font-display-lg text-display-lg mt-4 text-on-surface" id="cityName">Stuttgart</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant" id="dateTime">Germany • Monday, 14:30 PM</p>
+</div>
+<div class="text-right">
+<span class="material-symbols-outlined text-primary text-[80px]" id="weatherIcon" data-icon="partly_cloudy_day" style="font-variation-settings: 'FILL' 1;">partly_cloudy_day</span>
+<p class="font-headline-lg text-headline-lg text-primary mt-2" id="weatherDesc">Partly Cloudy</p>
+</div>
+</div>
+<div class="mt-12 flex items-baseline gap-2">
+<span class="font-display-lg text-[120px] leading-none text-on-surface font-extrabold" id="temp">18°</span>
+<span class="font-headline-lg text-headline-lg text-on-surface-variant opacity-40" id="tempRange">/ 22°</span>
+</div>
+<div class="mt-auto pt-10 flex gap-10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="water_drop">water_drop</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Precipitation</p>
+<p class="font-label-md text-label-md text-on-surface" id="precipitation">12%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="visibility">visibility</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Visibility</p>
+<p class="font-label-md text-label-md text-on-surface" id="visibility">14 km</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="thermostat">thermostat</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Feels Like</p>
+<p class="font-label-md text-label-md text-on-surface" id="feelsLike">17°C</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Map Insight Card -->
+<div class="lg:col-span-4 bg-surface-container-lowest ambient-shadow rounded-[2rem] overflow-hidden flex flex-col">
+<div class="flex-1 relative">
+<img alt="Location Map View" class="w-full h-full object-cover" id="mapImage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh0lLWogA9EWDoKzEuctHM5sSVri0SdaVZQWyC8bDtuTdbj4VL2NrH_oBszs2MTyUDqwz0xsD8sAKTB4P0IYUzUpfRWcrJNSPgwXHbLcSI8u-60LkCCZdYlO2G77mibJAQzW56wgL3Y2eWy6Eeb2YH3Ujhk8umUvmlWO9LdSFiVcjTgchEHN35qPfx6h4ZemYGY5ytdT7XtUDR3jATsX72U7jSLH2QZoP-f3xDdsx4C0tvKL_YM4BstxLQaBkaopnEeoz9eHo8LNg7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<button class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md text-primary font-label-md text-label-md py-3 rounded-xl hover:bg-white transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+                            Expand Satellite View
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Detailed Insights Section -->
+<section class="mb-section-gap">
+<div class="flex justify-between items-end mb-8">
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Detailed Insights</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">Customize Cards</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Sun Cycle -->
+<div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant" data-icon="wb_sunny">wb_sunny</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Sun Cycle</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Sunrise</p>
+<p class="font-label-md text-label-md text-on-surface" id="sunrise">05:42 AM</p>
+</div>
+<div class="h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-3/4"></div>
+</div>
+<div class="flex justify-between items-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Sunset</p>
+<p class="font-label-md text-label-md text-on-surface" id="sunset">08:56 PM</p>
+</div>
+</div>
+</div>
+<!-- Humidity -->
+<div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary" data-icon="humidity_percentage">humidity_percentage</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Humidity</span>
+</div>
+<div>
+<p class="font-display-lg text-[32px] text-on-surface" id="humidity">64%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Optimal for comfort</p>
+</div>
+</div>
+<!-- Wind Speed -->
+<div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary" data-icon="air">air</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Wind</span>
+</div>
+<div>
+<p class="font-display-lg text-[32px] text-on-surface"><span id="windSpeed">12</span> <span class="text-body-md font-normal">km/h</span></p>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm mt-1">
+<span class="material-symbols-outlined text-[16px]" id="windDirection" style="transform: rotate(45deg);">navigation</span>
+<span id="windDir">North-East</span>
+                        </div>
+</div>
+</div>
+<!-- UV Index -->
+<div class="bg-surface-container-lowest ambient-shadow p-6 rounded-[1.5rem] flex flex-col justify-between h-48 border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant" data-icon="light_mode">light_mode</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">UV Index</span>
+</div>
+<div>
+<p class="font-display-lg text-[32px] text-on-surface"><span id="uvIndex">4</span> <span class="text-body-md font-normal" id="uvLabel">Moderate</span></p>
+<div class="mt-2 w-full h-1.5 bg-surface-container rounded-full">
+<div class="h-full bg-secondary w-[40%] rounded-full" id="uvBar"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Daily Forecast Section -->
+<section class="mb-section-gap">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Daily Forecast</h3>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all" id="scrollLeft">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all" id="scrollRight">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-gutter overflow-x-auto hide-scrollbar pb-6 snap-x" id="forecastScroll">
+<!-- Forecast items will be populated here by JavaScript -->
+</div>
+</section>
+<!-- Footer -->
+<footer class="border-t border-outline-variant/20 pt-10 pb-section-gap flex flex-col md:flex-row justify-between items-center gap-gutter">
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Gweather. Natural precision.</p>
+<div class="flex gap-8">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors underline decoration-primary/30" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors underline decoration-primary/30" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors underline decoration-primary/30" href="#">API Documentation</a>
+</div>
+</footer>
+</main>
+<script>
+    const API_KEY = 'API_KEY_HERE'; // Add your Open-Meteo or weather API key if needed
+    const API_URL = 'https://api.open-meteo.com/v1/forecast';
+    
+    // Default coordinates for Stuttgart
+    let latitude = 48.7758;
+    let longitude = 9.1829;
+    let cityName = 'Stuttgart';
+    
+    // Weather icon mapping
+    const weatherIconMap = {
+        0: 'sunny',
+        1: 'partly_cloudy_day',
+        2: 'cloudy',
+        3: 'cloudy',
+        45: 'foggy',
+        48: 'foggy',
+        51: 'rainy',
+        53: 'rainy',
+        55: 'rainy',
+        61: 'rainy',
+        63: 'rainy',
+        65: 'rainy',
+        71: 'snowing',
+        73: 'snowing',
+        75: 'snowing',
+        80: 'rainy',
+        81: 'rainy',
+        82: 'rainy',
+        85: 'snowing',
+        86: 'snowing',
+        95: 'thunderstorm',
+        96: 'thunderstorm',
+        99: 'thunderstorm'
+    };
+    
+    // Fetch weather data from Open-Meteo API (free, no key required)
+    async function fetchWeather(lat, lon, city) {
+        try {
+            const response = await fetch(
+                `${API_URL}?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,apparent_temperature&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&timezone=auto`
+            );
+            const data = await response.json();
+            updateUI(data, city, lat, lon);
+        } catch (error) {
+            console.error('Error fetching weather:', error);
+        }
+    }
+    
+    function updateUI(data, city, lat, lon) {
+        const current = data.current;
+        const daily = data.daily;
+        
+        // Update current weather
+        document.getElementById('cityName').textContent = city;
+        document.getElementById('location').textContent = `${city}, ${getCountryFromCoords(lat, lon)}`;
+        document.getElementById('temp').textContent = Math.round(current.temperature_2m) + '°';
+        document.getElementById('feelsLike').textContent = Math.round(current.apparent_temperature) + '°C';
+        document.getElementById('humidity').textContent = current.relative_humidity_2m + '%';
+        document.getElementById('windSpeed').textContent = Math.round(current.wind_speed_10m);
+        document.getElementById('windDir').textContent = getWindDirection(current.wind_direction_10m);
+        document.getElementById('precipitation').textContent = Math.round(Math.random() * 30) + '%'; // Placeholder
+        document.getElementById('visibility').textContent = '14 km'; // Placeholder
+        
+        // Update weather icon and description
+        const iconCode = current.weather_code;
+        const iconName = weatherIconMap[iconCode] || 'partly_cloudy_day';
+        document.getElementById('weatherIcon').textContent = iconName;
+        document.getElementById('weatherDesc').textContent = getWeatherDescription(iconCode);
+        
+        // Update temperature range
+        const maxTemp = Math.round(daily.temperature_2m_max[0]);
+        const minTemp = Math.round(daily.temperature_2m_min[0]);
+        document.getElementById('tempRange').textContent = `/ ${maxTemp}°`;
+        
+        // Update sun times
+        const sunriseTime = new Date(daily.sunrise[0]);
+        const sunsetTime = new Date(daily.sunset[0]);
+        document.getElementById('sunrise').textContent = sunriseTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('sunset').textContent = sunsetTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        
+        // Update UV Index
+        document.getElementById('uvIndex').textContent = Math.round(daily.uv_index_max[0]);
+        const uvLabel = getUVLabel(daily.uv_index_max[0]);
+        document.getElementById('uvLabel').textContent = uvLabel;
+        document.getElementById('uvBar').style.width = (daily.uv_index_max[0] * 10) + '%';
+        
+        // Update date and time
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('dateTime').textContent = `${city} • ${dateStr}, ${timeStr}`;
+        
+        // Update forecast
+        updateForecast(daily);
+    }
+    
+    function updateForecast(daily) {
+        const forecastContainer = document.getElementById('forecastScroll');
+        forecastContainer.innerHTML = '';
+        
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(daily.time[i]);
+            const dayName = days[date.getDay()];
+            const maxTemp = Math.round(daily.temperature_2m_max[i]);
+            const minTemp = Math.round(daily.temperature_2m_min[i]);
+            const weatherCode = daily.weather_code[i];
+            const iconName = weatherIconMap[weatherCode] || 'partly_cloudy_day';
+            
+            const forecastItem = document.createElement('div');
+            forecastItem.className = 'min-w-[180px] snap-start bg-surface-container-lowest ambient-shadow p-6 rounded-2xl text-center group hover:bg-primary-container transition-colors cursor-pointer';
+            forecastItem.innerHTML = `
+                <p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70 mb-4 uppercase tracking-widest">${dayName}</p>
+                <span class="material-symbols-outlined text-[40px] text-primary group-hover:text-on-primary-container" data-icon="${iconName}">${iconName}</span>
+                <div class="mt-6">
+                    <p class="font-headline-md text-headline-md text-on-surface group-hover:text-on-primary-container">${maxTemp}°</p>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary-container/70">${minTemp}°</p>
+                </div>
+            `;
+            forecastContainer.appendChild(forecastItem);
+        }
+    }
+    
+    function getWeatherDescription(code) {
+        const descriptions = {
+            0: 'Clear Sky',
+            1: 'Mainly Clear',
+            2: 'Partly Cloudy',
+            3: 'Overcast',
+            45: 'Foggy',
+            48: 'Foggy',
+            51: 'Light Drizzle',
+            53: 'Moderate Drizzle',
+            55: 'Heavy Drizzle',
+            61: 'Slight Rain',
+            63: 'Moderate Rain',
+            65: 'Heavy Rain',
+            71: 'Slight Snow',
+            73: 'Moderate Snow',
+            75: 'Heavy Snow',
+            80: 'Slight Rain Showers',
+            81: 'Moderate Rain Showers',
+            82: 'Violent Rain Showers',
+            85: 'Slight Snow Showers',
+            86: 'Heavy Snow Showers',
+            95: 'Thunderstorm',
+            96: 'Thunderstorm with Hail',
+            99: 'Thunderstorm with Hail'
+        };
+        return descriptions[code] || 'Unknown';
+    }
+    
+    function getWindDirection(degrees) {
+        const directions = ['North', 'NE', 'East', 'SE', 'South', 'SW', 'West', 'NW'];
+        const index = Math.round(degrees / 45) % 8;
+        return directions[index];
+    }
+    
+    function getUVLabel(uv) {
+        if (uv < 3) return 'Low';
+        if (uv < 6) return 'Moderate';
+        if (uv < 8) return 'High';
+        if (uv < 11) return 'Very High';
+        return 'Extreme';
+    }
+    
+    function getCountryFromCoords(lat, lon) {
+        // Placeholder - in production, use reverse geocoding API
+        return 'DE';
+    }
+    
+    // Micro-interactions for horizontal scroll
+    const scrollContainer = document.getElementById('forecastScroll');
+    const btnLeft = document.getElementById('scrollLeft');
+    const btnRight = document.getElementById('scrollRight');
+
+    btnLeft.onclick = () => {
+        scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
+    };
+    btnRight.onclick = () => {
+        scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
+    };
+
+    // Subtle parallax/hover effect on cards
+    document.addEventListener('mousemove', (e) => {
+        document.querySelectorAll('.ambient-shadow').forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 25;
+                const rotateY = (centerX - x) / 25;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            }
+        });
+    });
+
+    document.querySelectorAll('.ambient-shadow').forEach(card => {
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `none`;
+        });
+        card.style.transition = "transform 0.1s ease-out";
+    });
+    
+    // City search functionality
+    document.getElementById('citySearch').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const city = e.target.value;
+            // In production, use geocoding API to get coordinates
+            // For now, just update Stuttgart
+            if (city.toLowerCase() === 'london') {
+                latitude = 51.5074;
+                longitude = -0.1278;
+                cityName = 'London';
+            } else if (city.toLowerCase() === 'paris') {
+                latitude = 48.8566;
+                longitude = 2.3522;
+                cityName = 'Paris';
+            }
+            fetchWeather(latitude, longitude, cityName);
+        }
+    });
+    
+    // Initial load
+    fetchWeather(latitude, longitude, cityName);
+</script>
+</body></html>
